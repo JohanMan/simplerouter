@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/SimpleRouter.iml" filepath="$PROJECT_DIR$/SimpleRouter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/me-module/me-module.iml" filepath="$PROJECT_DIR$/me-module/me-module.iml" />
       <module fileurl="file://$PROJECT_DIR$/user-module/user-module.iml" filepath="$PROJECT_DIR$/user-module/user-module.iml" />
     </modules>
   </component>

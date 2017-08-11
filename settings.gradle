@@ -1,1 +1,1 @@
-include ':app', ':library', ':user-module'
+include ':app', ':library', ':user-module', ':me-module'
