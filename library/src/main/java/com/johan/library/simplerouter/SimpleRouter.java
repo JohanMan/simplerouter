@@ -19,20 +19,8 @@ import java.util.List;
 
 public class SimpleRouter {
 
-    // 最大缓存
-    private static final int DEFAULT_CACHE_SIZE = 10;
     // ApplicationContext
     private static Context routerContext;
-    // 缓存已经放射过的数据，减少反射的次数
-    private static LruCache<Method, String> urlCache;
-
-    /**
-     * 初始化
-     * @param context
-     */
-    public static void init(Context context) {
-        init(context, DEFAULT_CACHE_SIZE);
-    }
 
     /**
      * 初始化
@@ -40,7 +28,6 @@ public class SimpleRouter {
      */
     public static void init(Context context, int cacheSize) {
         routerContext = context.getApplicationContext();
-        urlCache = new LruCache<>(cacheSize);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,13 +35,6 @@ public class SimpleRouter {
         return (T) Proxy.newProxyInstance(iRouter.getClassLoader(), new Class[]{iRouter}, new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                // 如果之前解析过了，直接打开Activity
-                String url = urlCache.get(method);
-                if (url != null) {
-                    openActivity(url);
-                    return null;
-                }
-                // 开始解析
                 // 域名，可以不写
                 String domain = null;
                 if (iRouter.isAnnotationPresent(RouterDomain.class)) {
@@ -85,10 +65,7 @@ public class SimpleRouter {
                     }
                 }
                 // 打开Activity
-                if (openActivity(urlBuilder.toString())) {
-                    // 保存起来
-                    urlCache.put(method, urlBuilder.toString());
-                }
+                openActivity(urlBuilder.toString());
                 return null;
             }
         });
